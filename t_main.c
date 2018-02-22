@@ -11,37 +11,53 @@
 ================================================================*/
 #include <stdio.h>
 #include <stdlib.h>
-#include "d_errno.h"
-#include "d_queue.h"
 
-d_queue_t	g_msg_queue;
+#include <pthread.h>
+
+#include "d_common.h"
+#include "d_errno.h"
+#include "d_message.h"
+
+void *t_thread(void *arg);
+int m_test_fun(void);
 
 int main(int argc, char* argv[])
 {
-	int i;
+	SYS_DEBUGP("Test for my queue");
 
-	printf("Test for my queue\n");
+	d_message_init();
 
-	d_init_queue(&g_msg_queue);
+    m_test_fun();
 
-	for(i = 0; i < 5; ++i){
-		d_node_t *p_node;
+	d_message_loop();
 
-		p_node = (d_node_t *)malloc(sizeof(d_node_t));
-		p_node->m_data = i+1;
-		d_en_queue(&g_msg_queue, p_node);
-	}
-
-	{
-		d_node_t *p_node;
-		while(d_de_queue(&g_msg_queue, &p_node) == D_SUCCESS){
-			printf("%d ", p_node->m_data);
-			free(p_node);
-		}
-	}
-
-	d_deinit_queue(&g_msg_queue);
+	d_message_deinit();
 	
 	return 0;
 }
 
+int m_test_fun(void)
+{
+    pthread_t th;
+
+    pthread_create(&th, NULL, t_thread, (void *)0);
+
+    return 0;
+}
+
+void *t_thread(void *arg)
+{
+	int i;
+ 
+	for(i = 0; i < 15; ++i){
+        d_msg_data_t t_data;
+
+        d_delay_ms(2000);
+
+	    SYS_DEBUGP("put message %d", i);
+        t_data.m_msg_id         = i+1;
+        t_data.m_handler        = 0;
+        t_data.m_msg_data.m_ul  = i*23+10;
+        d_put_message(t_data);
+	}
+}

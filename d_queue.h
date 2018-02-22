@@ -13,8 +13,9 @@
 #define _D_QUEUE_H_
 
 #include "d_type.h"
+#include "d_message.h"
 
-typedef uint32_t	d_data_type_t;
+typedef d_msg_data_t d_data_type_t;
 
 typedef struct d_node
 {
@@ -26,11 +27,11 @@ typedef struct d_queue
 {
 	d_node_t *p_head;
 	d_node_t *p_tail;
-} d_queue_t;
+} _d_queue_t;
 
-int32_t d_init_queue(d_queue_t *p_queue);
-int32_t d_deinit_queue(d_queue_t *p_queue);
-int32_t d_en_queue(d_queue_t *p_queue, d_node_t *p_node);
-int32_t d_de_queue(d_queue_t *p_queue, d_node_t **pp_node);
+int32_t d_queue_init(_d_queue_t *p_queue);
+int32_t d_queue_deinit(_d_queue_t *p_queue);
+int32_t d_en_queue(_d_queue_t *p_queue, d_node_t *p_node);
+int32_t d_de_queue(_d_queue_t *p_queue, d_node_t **pp_node);
 
 #endif//_D_QUEUE_H_

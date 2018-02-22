@@ -13,7 +13,7 @@
 #include "d_errno.h"
 #include "d_queue.h"
 
-int32_t d_init_queue(d_queue_t *p_queue)
+int32_t d_queue_init(_d_queue_t *p_queue)
 {
 	if(p_queue == NULL)
 		return D_MSG_QUEUE_UNINIT;
@@ -30,7 +30,7 @@ int32_t d_init_queue(d_queue_t *p_queue)
 	return D_SUCCESS;
 }
 
-int32_t d_deinit_queue(d_queue_t *p_queue)
+int32_t d_queue_deinit(_d_queue_t *p_queue)
 {
 	if(p_queue == NULL)
 		return D_MSG_QUEUE_UNINIT;
@@ -43,7 +43,7 @@ int32_t d_deinit_queue(d_queue_t *p_queue)
 	return D_SUCCESS;
 }
 
-int32_t d_en_queue(d_queue_t *p_queue, d_node_t *p_node)
+int32_t d_en_queue(_d_queue_t *p_queue, d_node_t *p_node)
 {
 	if(p_queue == NULL)
 		return D_MSG_QUEUE_UNINIT;
@@ -60,7 +60,7 @@ int32_t d_en_queue(d_queue_t *p_queue, d_node_t *p_node)
 	return D_SUCCESS;
 }
 
-int32_t d_de_queue(d_queue_t *p_queue, d_node_t **pp_node)
+int32_t d_de_queue(_d_queue_t *p_queue, d_node_t **pp_node)
 {
 	if(p_queue == NULL)
 		return D_MSG_QUEUE_UNINIT;

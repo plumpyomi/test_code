@@ -14,6 +14,16 @@
 
 #include "d_type.h"
 
+#define D_MAX_MSG_HANDLE    16
+#define D_SYS_MESSAGE   0x0000
+
+/**
+ * @defgroup custom define
+ * @{
+ */
+
+/** @} */
+
 typedef union
 {
 	uint32_t	m_ul;
@@ -25,18 +35,20 @@ typedef union
 	float		m_f;
 } base_data_t;
 
-typedef uint32_t (*p_msg_handler_t)(uint32_t id, base_data_t data);
+typedef int32_t d_handler_t;
+typedef int32_t (*p_msg_handler_t)(uint32_t id, base_data_t data);
 
 typedef struct d_msg_data
 {
 	uint32_t	    m_msg_id;
+    d_handler_t     m_handler;
 	base_data_t	    m_msg_data;
-	p_msg_handler_t p_func;
 } d_msg_data_t;
 
 int32_t d_message_init(void);
 int32_t d_message_deinit(void);
 int32_t d_put_message(d_msg_data_t data);
 int32_t d_get_message(d_msg_data_t *p_data);
+void d_message_loop(void);
 
 #endif//_D_MESSAGE_H_
