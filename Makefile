@@ -3,7 +3,7 @@ CFLAGS=-g
 INCLUDE=
 LIBS=-lpthread
 
-OBJS= t_main.o d_queue.o d_message.o d_mutex.o d_common.o
+OBJS= t_main.o d_queue.o d_message.o d_mutex.o d_common.o d_test.o
 TAGT=test
 
 $(TAGT):$(OBJS)

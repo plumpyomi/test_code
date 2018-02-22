@@ -51,4 +51,6 @@ int32_t d_put_message(d_msg_data_t data);
 int32_t d_get_message(d_msg_data_t *p_data);
 void d_message_loop(void);
 
+d_handler_t d_message_handler_reg(p_msg_handler_t p_func);
+
 #endif//_D_MESSAGE_H_
