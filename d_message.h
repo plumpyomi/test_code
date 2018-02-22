@@ -15,6 +15,7 @@
 #include "d_type.h"
 
 #define D_MAX_MSG_HANDLE    16
+
 #define D_SYS_MESSAGE   0x0000
 
 /**
@@ -35,6 +36,14 @@ typedef union
 	float		m_f;
 } base_data_t;
 
+typedef enum
+{
+    PRIO_0 = 0,
+    PRIO_1,
+    PRIO_2,
+    PRIO_NUM
+} d_msg_priority_t;
+
 typedef int32_t d_handler_t;
 typedef int32_t (*p_msg_handler_t)(uint32_t id, base_data_t data);
 
@@ -47,8 +56,8 @@ typedef struct d_msg_data
 
 int32_t d_message_init(void);
 int32_t d_message_deinit(void);
-int32_t d_put_message(d_msg_data_t data);
-int32_t d_get_message(d_msg_data_t *p_data);
+int32_t d_put_message(d_msg_data_t data, d_msg_priority_t prio);
+int32_t d_get_message(d_msg_data_t *p_data, d_msg_priority_t prio);
 void d_message_loop(void);
 
 d_handler_t d_message_handler_reg(p_msg_handler_t p_func);

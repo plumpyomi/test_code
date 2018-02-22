@@ -79,7 +79,7 @@ void *t_temperature_thread(void *arg)
         t_data.m_msg_id         = i++;
         t_data.m_handler        = gh_temperature;
         t_data.m_msg_data.m_ul  = _get_random(-30, 40);
-        d_put_message(t_data);
+        d_put_message(t_data, PRIO_1);
 
         d_delay_ms(1000);
 	}
@@ -125,7 +125,7 @@ void *t_switch_thread(void *arg)
         t_data.m_msg_data.m_uc[0]  = _get_random(0, 2);
         t_data.m_msg_data.m_uc[1]  = _get_random(0, 2);
         t_data.m_msg_data.m_uc[2]  = _get_random(0, 2);
-        d_put_message(t_data);
+        d_put_message(t_data, PRIO_0);
 
         d_delay_ms(1000);
 	}
